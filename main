@@ -1,0 +1,61 @@
+import java.util.Scanner;
+
+
+public class main {
+    public static void main(String []args){
+        
+        Scanner read = new Scanner (System.in);
+        int ch=0;
+        PCB[] Q1;
+        PCB[] Q2;
+        do{
+        System.out.print("Enter your choice!: ");
+        int choice = read.nextInt();
+        int n1=0;
+        int n2=0;
+        int numP;
+        switch(choice){
+            case 1:
+                System.out.println("Enter the number of processes: ");
+                numP=read.nextInt();
+                Q1= new PCB[numP];
+                Q2=new PCB[numP];
+                for(int i=0; i<numP ; i++){
+                    System.out.println("Enter process information: ");
+                    System.out.println("Process ID: ");
+                    int ID=read.nextInt();
+                    System.out.println("Priority: ");
+                    int pri=read.nextInt();
+                    System.out.println("Arrival time: ");
+                    int arrTime=read.nextInt();
+                    System.out.println("CPU burst time: ");
+                    int CPUburst=read.nextInt();
+                    
+                    PCB obj = new PCB(ID, pri,arrTime, CPUburst );
+                    
+                    if(pri==1){
+                        Q1[n1]=obj;
+                        n1++;}
+                    else{
+                        Q2[n2]=obj;
+                        n2++;}
+                }
+            break;
+            
+            case 2:
+                 //file
+            break;
+            
+            case 3:
+                ch=3;
+                break;
+                 
+            
+                      
+                    }
+                
+
+        }while(ch!=3);
+                
+        
+    }}
