@@ -3,6 +3,11 @@ public class PCB {
    private int priority;
    private int arrivalTime;
    private int CPUBurstTime;
+   private int startTime;
+   private int terminationTime;
+   private int turnAroundTime;
+   private int waitingTime;
+   private int responseTime;
 
     public PCB(int processID, int priority, int arrivalTime, int CPUBurstTime) {
         this.processID = processID;
