@@ -12,8 +12,6 @@ public class main {
         System.out.println(" please enter number of processes : ");
         int numP=read.nextInt();
 
-    
-        int ch=0;
         PCB[] Q1;
         PCB[] Q2;
         Q1= new PCB[numP];
