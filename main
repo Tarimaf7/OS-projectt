@@ -63,6 +63,8 @@ public class main{
         }
         
         Q1=processAndSortQ1(Q1,3);
+        System.arraycopy(Q1, 0, All, 0, Q1.length);
+        System.arraycopy(Q2, 0, All, Q1.length, Q2.length);
         //End Lana,Sara
          
         
