@@ -1,72 +1,78 @@
+
+import java.util.List;
 import java.util.Scanner;
+import static osproject.PCB.processAndSortQ1;
 
 
-public class main {
-    public static void main(String []args){
+public class main{
 
-        
+    
+    public static void main(String[] args) {
         Scanner read = new Scanner (System.in);
-
-
-        //................case2 report details.................
-        
-        // Print the detailed information about each process and different scheduling criteria
-        System.out.println("Process\tPriority\tArrival Time\tCPU Burst Time\tStart Time\tTermination Time\tTurnaround Time\tWaiting Time\tResponse Time");
-        for (PCB process : Q1) {
-            System.out.println(process.getProcessID() + "\t" + process.getPriority() + "\t\t" + process.getArrivalTime() + "\t\t" +
-                    process.getCpuBurstTime() + "\t\t" + process.getStartTime() + "\t\t" + process.getTerminationTime() + "\t\t" +
-                    process.getTurnaroundTime() + "\t\t" + process.getWaitingTime() + "\t\t" + process.getResponseTime());
-        }
-
-        for (PCB process : Q2) {
-            System.out.println(process.getProcessID() + "\t" + process.getPriority() + "\t\t" + process.getArrivalTime() + "\t\t" +
-                    process.getCpuBurstTime() + "\t\t" + process.getStartTime() + "\t\t" + process.getTerminationTime() + "\t\t" +
-                    process.getTurnaroundTime() + "\t\t" + process.getWaitingTime() + "\t\t" + process.getResponseTime());
-        }
-
-        System.out.println("Average Turnaround Time: " + avgTurnaroundTime);
-        System.out.println("Average Waiting Time: " + avgWaitingTime);
-        System.out.println("Average Response Time: " + avgResponseTime);
-    }
-
 
 
         do{
         System.out.print("Enter your choice!: ");
+        System.out.print("");
         int choice = read.nextInt();
+        int ch;
         int n1=0;
         int n2=0;
         int numP;
+        PCB[] All;
+        PCB[] Q1;
+        PCB[] Q2;
         switch(choice){
             case 1:
-                System.out.println("Enter the number of processes: ");
-                numP=read.nextInt();
-                Q1= new PCB[numP];
-                Q2=new PCB[numP];
-                for(int i=0; i<numP ; i++){
-                    System.out.println("Enter process information: ");
-                    System.out.println("Process ID: ");
-                    int ID=read.nextInt();
-                    System.out.println("Priority: ");
-                    int pri=read.nextInt();
-                    System.out.println("Arrival time: ");
-                    int arrTime=read.nextInt();
-                    System.out.println("CPU burst time: ");
-                    int CPUburst=read.nextInt();
-                    
-                    PCB obj = new PCB(ID, pri,arrTime, CPUburst );
-                    
-                    if(pri==1){
-                        Q1[n1]=obj;
-                        n1++;}
-                    else{
-                        Q2[n2]=obj;
-                        n2++;}
+                //............case1............Start Lana,sara
+
+        System.out.println(" please enter number of processes : ");
+        numP=read.nextInt();
+        All=new PCB[numP];
+        Q1= new PCB[numP];
+        Q2=new PCB[numP];
+        for( int i=0;i<numP;i++){
+        System.out.println("enter details of a process "+(i+1)+":");
+        System.out.println(" Please enter priorty type by typing 1 or 2 :");
+        int priority=read.nextInt();
+        System.out.println(" Please enter arraival time: ");
+        int arrivalTime=read.nextInt();
+        System.out.println("enter CPU burst time");
+        int CPUBurstTime= read.nextInt();
+        PCB p =new PCB((i+1),priority,arrivalTime,CPUBurstTime);
+
+        if ( p.getPriority()==1 ){
+        for(int m=0 ;m<Q1.length;m++){
+            if(Q1[m]==null){
+                Q1[m]=p;
+            }
+        }
+        }
+        else if(p.getPriority()==2){
+        if(Q2==null)
+            Q2[0]=p;
+        else{
+            int smallestBurst=p.getCPUBurstTime();
+            int index=0;
+            for(int l=0;l<Q2.length;l++){
+                if(Q2[l].getCPUBurstTime()<smallestBurst){
+                    smallestBurst=Q2[l].getCPUBurstTime();
+                    index=l;
                 }
- //........... response Time , turn arount , waiting ,termination and starttime.............
+            }
+        }
+        
+        Q1=processAndSortQ1(Q1,3);
+        //End Lana,Sara
+         
+        
+        
+        
+        //........... response Time , turn arount , waiting ,termination and starttime.............
+        //...............EROR............
         double averageturnAroundTime =0 , averageWaitingTime=0, averageResponseTime=0;
         for (PCB p: Q1{
-        averageTurnAroundTime+= p.getturnAroundTime();
+        averageTurnAroundTime+= p.getTurnAroundTime();
         averageWaitinTime+=p.getwaitingTime();
         averageResponseTime+=p.getresponseTime();
         }
@@ -79,10 +85,12 @@ public class main {
         avrageWaitinTime/=nump;
         avrageResponseTime/=nump;
 
+
             break;
             
             case 2:
-//................case2 report details.................
+                 //file
+                  //................case2 report details.................
         
         // Print the detailed information about each process and different scheduling criteria
         System.out.println("Process\tPriority\tArrival Time\tCPU Burst Time\tStart Time\tTermination Time\tTurnaround Time\tWaiting Time\tResponse Time");
@@ -103,7 +111,6 @@ public class main {
         System.out.println("Average Response Time: " + avgResponseTime);
     }
 
-                 //file
             break;
             
             case 3:
@@ -118,4 +125,10 @@ public class main {
         }while(ch!=3);
                 
         
-    }}
+    }
+        }
+}
+
+
+
+
