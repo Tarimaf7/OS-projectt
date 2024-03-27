@@ -1,3 +1,6 @@
+
+import java.util.*;
+
 public class PCB {
    private int processID;
    private int priority;
@@ -14,10 +17,14 @@ public class PCB {
         this.priority = priority;
         this.arrivalTime = arrivalTime;
         this.CPUBurstTime = CPUBurstTime;
+        this.startTime=0;
+        this.terminationTime=0;
+        this.turnAroundTime=0;
+        this.responseTime=0;
     }
 
-    public int getProcessID() {
-        return processID;
+    public String getProcessID() {
+         return "p"+processID;
     }
 
     public int getPriority() {
@@ -47,6 +54,72 @@ public class PCB {
     public void setCPUBurstTime(int CPUBurstTime) {
         this.CPUBurstTime = CPUBurstTime;
     }
-   
-   
+    
+    public static PCB[] processAndSortQ1(PCB[] processes, int timeQuantum) {
+        
+        List<PCB> p = convertArrayToList(processes) ;
+        
+        List<PCB> sortedProcesses = new ArrayList<>();
+
+        // Sort the processes based on arrival time
+        Collections.sort(p, Comparator.comparingInt(PCB::getArrivalTime));
+
+        // Create a queue to hold the processes
+        List<PCB> queue = new ArrayList<>();
+
+        // Process the given set of processes
+        int currentTime = 0;
+        while (!p.isEmpty()) {
+            for (PCB process : p) {
+                if (process.getArrivalTime() <= currentTime) {
+                    queue.add(process);
+                    p.remove(process);
+                }
+            }
+
+            // Process the queue using Round Robin algorithm with the given time quantum
+            int quantum = timeQuantum;
+            while (!queue.isEmpty()) {
+                PCB currentProcess = queue.get(0);
+                queue.remove(0);
+
+                // Determine the number of steps to process the current process
+                int steps = Math.min(quantum, currentProcess.getCPUBurstTime());
+                currentTime += steps;
+
+                // Update the CPU burst time of the current process
+                currentProcess.CPUBurstTime -= steps;
+
+                // Add the current process to the sorted list
+                sortedProcesses.add(currentProcess);
+
+                // Check if the current process is finished
+                if (currentProcess.getCPUBurstTime() > 0) {
+                    queue.add(currentProcess);
+                }
+
+                // Update the remaining quantum
+                quantum -= steps;
+
+                // Break the loop if the time quantum is exhausted
+                if (quantum <= 0) {
+                    break;
+                }
+            }
+        }
+        PCB[] SORT =(PCB[]) sortedProcesses.toArray();
+        return SORT;
+        
+    }
+    
+    public static <PCB> List<PCB> convertArrayToList(PCB[] array) {
+        List<PCB> list = new ArrayList<>();
+        for (PCB element : array) {
+            list.add(element);
+        }
+        return list;
+    }
+
+    
+    
 }
