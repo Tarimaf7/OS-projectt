@@ -53,47 +53,14 @@ System.out.println("Enter the number of processes: ");
         
         
         //........... response Time , turn arount , waiting ,termination and starttime.............
-        //...............EROR............
-        double averageturnAroundTime =0 , averageWaitingTime=0, averageResponseTime=0;
-        for (PCB p: Q1{
-        averageTurnAroundTime+= p.getTurnAroundTime();
-        averageWaitinTime+=p.getwaitingTime();
-        averageResponseTime+=p.getresponseTime();
-        }
-        for (PCB p: Q2{
-        averageTurnAroundTime+= p.getturnAroundTime();
-        averageWaitinTime+=p.getwaitingTime();
-        averageResponseTime+=p.getresponseTime();
-        }
-        averageTurnAroundTime/=nump;
-        avrageWaitinTime/=nump;
-        avrageResponseTime/=nump;
+       
 
 
-            break;
+           
             
             case 2:
                  //file
-                  //................case2 report details.................
-        
-        // Print the detailed information about each process and different scheduling criteria
-        System.out.println("Process\tPriority\tArrival Time\tCPU Burst Time\tStart Time\tTermination Time\tTurnaround Time\tWaiting Time\tResponse Time");
-        for (PCB process : Q1) {
-            System.out.println(process.getProcessID() + "\t" + process.getPriority() + "\t\t" + process.getArrivalTime() + "\t\t" +
-                    process.getCpuBurstTime() + "\t\t" + process.getStartTime() + "\t\t" + process.getTerminationTime() + "\t\t" +
-                    process.getTurnaroundTime() + "\t\t" + process.getWaitingTime() + "\t\t" + process.getResponseTime());
-        }
-
-        for (PCB process : Q2) {
-            System.out.println(process.getProcessID() + "\t" + process.getPriority() + "\t\t" + process.getArrivalTime() + "\t\t" +
-                    process.getCpuBurstTime() + "\t\t" + process.getStartTime() + "\t\t" + process.getTerminationTime() + "\t\t" +
-                    process.getTurnaroundTime() + "\t\t" + process.getWaitingTime() + "\t\t" + process.getResponseTime());
-        }
-
-        System.out.println("Average Turnaround Time: " + avgTurnaroundTime);
-        System.out.println("Average Waiting Time: " + avgWaitingTime);
-        System.out.println("Average Response Time: " + avgResponseTime);
-    }
+                 
 
             break;
             
