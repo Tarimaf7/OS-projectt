@@ -24,50 +24,32 @@ public class main{
         PCB[] Q2;
         switch(choice){
             case 1:
-                //............case1............Start Lana,sara
-
-        System.out.println(" please enter number of processes : ");
-        numP=read.nextInt();
-        All=new PCB[numP];
-        Q1= new PCB[numP];
-        Q2=new PCB[numP];
-        for( int i=0;i<numP;i++){
-        System.out.println("enter details of a process "+(i+1)+":");
-        System.out.println(" Please enter priorty type by typing 1 or 2 :");
-        int priority=read.nextInt();
-        System.out.println(" Please enter arraival time: ");
-        int arrivalTime=read.nextInt();
-        System.out.println("enter CPU burst time");
-        int CPUBurstTime= read.nextInt();
-        PCB p =new PCB((i+1),priority,arrivalTime,CPUBurstTime);
-
-        if ( p.getPriority()==1 ){
-        for(int m=0 ;m<Q1.length;m++){
-            if(Q1[m]==null){
-                Q1[m]=p;
-            }
-        }
-        }
-        else if(p.getPriority()==2){
-        if(Q2==null)
-            Q2[0]=p;
-        else{
-            int smallestBurst=p.getCPUBurstTime();
-            int index=0;
-            for(int l=0;l<Q2.length;l++){
-                if(Q2[l].getCPUBurstTime()<smallestBurst){
-                    smallestBurst=Q2[l].getCPUBurstTime();
-                    index=l;
+    //............case1............
+System.out.println("Enter the number of processes: ");
+                numP=read.nextInt();
+                Q1= new PCB[numP];
+                Q2=new PCB[numP];
+                for(int i=0; i<numP ; i++){
+                    System.out.println("Enter process information: ");
+                    System.out.println("Process ID: ");
+                    int ID=read.nextInt();
+                    System.out.println("Priority: ");
+                    int pri=read.nextInt();
+                    System.out.println("Arrival time: ");
+                    int arrTime=read.nextInt();
+                    System.out.println("CPU burst time: ");
+                    int CPUburst=read.nextInt();
+                    
+                    PCB obj = new PCB(ID, pri,arrTime, CPUburst );
+                    
+                    if(pri==1){
+                        Q1[n1]=obj;
+                        n1++;}
+                    else{
+                        Q2[n2]=obj;
+                        n2++;}
                 }
-            }
-        }
-        
-        Q1=processAndSortQ1(Q1,3);
-        System.arraycopy(Q1, 0, All, 0, Q1.length);
-        System.arraycopy(Q2, 0, All, Q1.length, Q2.length);
-        //End Lana,Sara
-         
-        
+            break;
         
         
         //........... response Time , turn arount , waiting ,termination and starttime.............
