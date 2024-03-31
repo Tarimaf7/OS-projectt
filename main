@@ -59,6 +59,27 @@ System.out.println("Enter the number of processes: ");
            
             
             case 2:
+                public void setCPUBurstTime(int CPUBurstTime){
+                    this.CPUBurstTime = CPUBurstTime;
+                }
+
+                // calculate the turn around time
+                public void calculateTurnAroundTime(){
+                    this.turnAroundTime = this.terminationTime - arrivalTime;
+                }
+
+
+                // calculate the turn around time
+                public void calculateWaitingTime(){
+                    this.waitingTime = this.startTime - this.arrivalTime;
+                }
+
+                // calculate the response time
+                public void calculateResponseTime(){
+                    this.responseTime = this.turnAroundTime - this.CPUBurstTime;
+                }
+
+                
                  //file
                  
 
