@@ -1,35 +1,29 @@
 
-import java.util.List;
 import java.util.Scanner;
-import static osproject.PCB.processAndSortQ1;
-
-
-public class main{
-
-    
-    public static void main(String[] args) {
+public class Scheduler {
+	 //static PCB[] CPU;
+    public static void main(String []args){
+        
         Scanner read = new Scanner (System.in);
-
-
-        do{
-        System.out.print("Enter your choice!: ");
-        System.out.print("");
-        int choice = read.nextInt();
-        int ch;
-        int n1=0;
-        int n2=0;
-        int numP;
-        PCB[] All;
+        int choice;
         PCB[] Q1;
         PCB[] Q2;
+        PCB[] cpu;//the scheduling Q
+        do{
+        System.out.print("Enter your choice!: ");
+        choice = read.nextInt();
+        int n1=0;//the actual length of Q1
+        int n2=0;//the actual length of Q2
+        int numP;
         switch(choice){
             case 1:
-    //............case1............
-System.out.println("Enter the number of processes: ");
+            	//scheduling the processes
+                System.out.println("Enter the number of processes: ");
                 numP=read.nextInt();
                 Q1= new PCB[numP];
                 Q2=new PCB[numP];
                 for(int i=0; i<numP ; i++){
+                	
                     System.out.println("Enter process information: ");
                     System.out.println("Process ID: ");
                     int ID=read.nextInt();
@@ -38,69 +32,103 @@ System.out.println("Enter the number of processes: ");
                     System.out.println("Arrival time: ");
                     int arrTime=read.nextInt();
                     System.out.println("CPU burst time: ");
+                    
                     int CPUburst=read.nextInt();
+                   read.nextInt();
                     
                     PCB obj = new PCB(ID, pri,arrTime, CPUburst );
                     
                     if(pri==1){
                         Q1[n1]=obj;
-                        n1++;}
+                        n1++;} 
                     else{
                         Q2[n2]=obj;
                         n2++;}
+                    //to get the original cpu of Q1 burst time
+                    int burstTime[]=new int[numP] ;
+                    for (int n=0; n<n1 ; n++){
+                        if (Q1[n]!=null){
+                            burstTime[n]=Q1[n].getCPUBurstTime();
+                            
+                        }
+                        
+                    }
+                    
                 }
-            break;
-        
-        
-        //........... response Time , turn arount , waiting ,termination and starttime.............
-       
-
-
-           
+               
+                PCBLinkedList <PCB> helpingQ=new PCBLinkedList<>();
+                 cpu=new PCB[numP];
+                for (int m=0;m<=n1 ; m++){
+                    helpingQ.add(Q1[m]);
+                }
+                for(int n=0;n<numP;n++){
+                    helpingQ.findfirst();
+                    if (helpingQ.retrieve().getCPUBurstTime()<=0){
+                        if(helpingQ.last()){
+                            helpingQ.findfirst();
+                        }
+                        else{
+                            helpingQ.findnext();
+                        }
+                        
+                    }
+                    else{
+                        cpu[n]=helpingQ.retrieve();
+                        helpingQ.retrieve().setCPUBurstTime(helpingQ.retrieve().getCPUBurstTime()-3);
+                        
+                    }
+                }
+                
+                Sort(Q2);
+                int count=0;
+                for (int i=0;i<=n2 ;i++){
+                if(cpu[i]!=null){
+               cpu[i]= Q2[count];
+               count++;
+               }
+               }
+                break;
+                
             
             case 2:
-                public void setCPUBurstTime(int CPUBurstTime){
-                    this.CPUBurstTime = CPUBurstTime;
-                }
-
-                // calculate the turn around time
-                public void calculateTurnAroundTime(){
-                    this.turnAroundTime = this.terminationTime - arrivalTime;
-                }
-
-
-                // calculate the turn around time
-                public void calculateWaitingTime(){
-                    this.waitingTime = this.startTime - this.arrivalTime;
-                }
-
-                // calculate the response time
-                public void calculateResponseTime(){
-                    this.responseTime = this.turnAroundTime - this.CPUBurstTime;
-                }
-
-                
-                 //file
-                 
-
+            	
             break;
+                
             
             case 3:
-                ch=3;
-                break;
-                 
+             System.out.println("thank you, bye!");
+                 break;
             
                       
                     }
-                
+            //all
+                            
 
-        }while(ch!=3);
+        }while(choice!=3);
                 
         
     }
+
+    public static void Sort(PCB[] array) {
+        int n = array.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (array[j].getCPUBurstTime() > array[j + 1].getCPUBurstTime()) {
+                    // Swap array[j] and array[j+1]
+                    PCB temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
         }
+        return;
+    }
+
+  
+
 }
 
-
+	     
+	
 
 
