@@ -34,7 +34,7 @@ public class Scheduler {
                     System.out.println("CPU burst time: ");
                     
                     int CPUburst=read.nextInt();
-                   read.nextInt();
+                   
                     
                     PCB obj = new PCB(ID, pri,arrTime, CPUburst );
                     
