@@ -91,9 +91,34 @@ public class Scheduler {
                 
             
             case 2:
-            	
-            break;
-                
+            
+            System.out.println("Enter Termination Time: ");
+            int terminationTime = read.nextInt();           
+            System.out.println("Enter Arrival Time: ");
+            int arrivalTime = read.nextInt();                   
+            System.out.println("Enter Start Time: ");
+            int startTime = read.nextInt();           
+            System.out.println("Enter CPU Burst Time: ");
+            int cpuBurstTime = read.nextInt();
+             
+             PCB o = new PCB(terminationTime,arrivalTime,startTime,cpuBurstTime );
+             o.setTerminationTime(terminationTime);  
+             o.setArrivalTime(arrivalTime);  
+             o.setStartTime(startTime);
+             o.setCPUBurstTime(cpuBurstTime);                
+         //calculate Termination Time  
+         int y =o.getTerminationTime()-o.getArrivalTime();
+         o.setTurnAroundTime(y);
+         System.out.println(o.getTurnAroundTime());  
+         //calculate Waiting Time 
+         int z =o.getStartTime()-o.getArrivalTime();
+         o.setWaitingTime(z);
+         System.out.println(o.getWaitingTime());    
+        //calculate Response Time
+        int x =o.getTurnAroundTime()-o.getCPUBurstTime();
+         o.setResponseTime(x);
+         System.out.println(o.getResponseTime());  
+             break;    
             
             case 3:
              System.out.println("thank you, bye!");
