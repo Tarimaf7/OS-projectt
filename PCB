@@ -54,5 +54,51 @@ public class PCB {
     public void setCPUBurstTime(int CPUBurstTime) {
         this.CPUBurstTime = CPUBurstTime;
     }
+
+ public void setTurnAroundTime (int turnAroundTime) {
+   this.turnAroundTime = turnAroundTime;
+   }
+   
+   public int getTurnAroundTime() {
+   return turnAroundTime;
+   }
+   
+    
+   public void setWaitingTime (int waitingTime) {
+   this.waitingTime = waitingTime;
+   }
+   
+    public int getWaitingTime() {
+   return waitingTime;
+   }
+   
+    
+    public void setResponseTime (int responseTime) {
+   this.responseTime = responseTime;
+   }
+   
+   public int getResponseTime() {
+   return responseTime;
+   }
+   
+      
+    public void setTerminationTime (int terminationTime ) {
+   this.terminationTime = terminationTime;
+   }
+   
+   public int getTerminationTime() {
+   return terminationTime;
+   }
+   
+    public void setStartTime (int startTime ) {
+   this.startTime = startTime;
+   }
+   
+   public int getStartTime() {
+   return startTime;
+   }
+
+}// end class 
+   
     
     
