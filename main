@@ -97,6 +97,8 @@ public class Scheduler {
                 
             
             case 2:
+
+	   File file = new File(";/Users/joudalfaleh/Desktop/Report.txt");
             
             System.out.println("Enter Termination Time: ");
             int terminationTime = read.nextInt();           
