@@ -3,14 +3,14 @@ import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.IOException;
 public class Scheduler {
-	 //static PCB[] CPU;
+	 static PCB[] cpu;
     public static void main(String []args){
         
         Scanner read = new Scanner (System.in);
         int choice;
         PCB[] Q1;
         PCB[] Q2;
-        PCB[] cpu;//the scheduling Q
+       
         do{
 
 	System.out.println("1. Enter process' information ");
@@ -47,7 +47,7 @@ public class Scheduler {
                     if(pri==1){
                         Q1[n1]=obj;
                         n1++;} 
-                    else{
+                    if (pri == 2){
                         Q2[n2]=obj;
                         n2++;}
                     //to get the original cpu of Q1 burst time
@@ -67,8 +67,9 @@ public class Scheduler {
                 for (int m=0;m<=n1 ; m++){
                     helpingQ.add(Q1[m]);
                 }
+helpingQ.findfirst();
                 for(int n=0;n<numP;n++){
-                    helpingQ.findfirst();
+                    
                     if (helpingQ.retrieve().getCPUBurstTime()<=0){
                         if(helpingQ.last()){
                             helpingQ.findfirst();
@@ -85,14 +86,18 @@ public class Scheduler {
                     }
                 }
                 
-                Sort(Q2);
-                int count=0;
-                for (int i=0;i<=n2 ;i++){
-                if(cpu[i]!=null){
-               cpu[i]= Q2[count];
-               count++;
-               }
-               }
+               Sort(Q2);
+                    int count = 0;
+                    while(cpu[count]!=null) {
+                    	count++;
+                    }
+                   
+                    for (int i = 0; i < Q2.length; i++) {
+                        
+                            cpu[count] = Q2[i];
+                            
+                        
+                    }
                 break;
                 
             
@@ -142,21 +147,22 @@ public class Scheduler {
         
     }
 
-    public static void Sort(PCB[] array) {
+  public static void Sort(PCB[] array) {
         int n = array.length;
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-                if (array[j].getCPUBurstTime() > array[j + 1].getCPUBurstTime()) {
+                
                     // Swap array[j] and array[j+1]
-                    PCB temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
+                   
+            	 if (array[j] != null && array[j + 1] != null && array[j].getArrivalTime()> array[j + 1].getArrivalTime()) {
+                        // Swap array[j] and array[j+1]
+                        PCB temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
                 }
             }
         }
-        return;
-    }
-
   
 
 }
