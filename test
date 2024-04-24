@@ -1,0 +1,63 @@
+public void schedule() {
+Sort(Q1);
+Sort(Q2);
+PCB shortestJob = null;
+while (!Q1.isEmpty() || !Q2.isEmpty()) {
+if (!Q1.isEmpty() && Q1.get(0).arrivalTime<=currentTime){
+PCB currentProcess=Q1.remove(0);
+System.out.print(currentProcess.getProcessID());
+
+if(currnetProcess.startTime == -1) {
+currentProcess.startTime = currentTime; }
+int remainingBurstTime = currentProcess.newCPUBurstTime;
+if ( remainingBurstTime > 3 ){
+currnetTime += 3;
+currnetProcess.newArrivalTime = currentTime;
+currentProcess.newCPUBurstTime -=3;
+Q1.add(currentProcess); }
+else {
+currentTime += remainingBurst;
+currentProcess.responseTime = currentProcess.startTime - currentProcess.arrivalTime;
+currentProcess.terminationTime = currentTime;
+currentProcess.turnaroundTime = currentProcess.terminationTime - currentProcess.arrivalTime;
+currentProcess.waitingTime = currentProcess.turnaroundTime - currentProcess.CPUBurstTime;
+cpu.add(currentProcess); }
+}else if (Q2.isEmpty()) {
+System.out.print("CS");
+currentTime++; }
+else if (!Q2.isEmpty() && Q2.get(0).arrivalTime<=currentTime) {
+if(notEnd ==1) {
+shortestJob = Q2.get(0); }
+else {
+if( Q2.get(0).arrivalTime<=currentTime) {
+shortestJob = Q2.get(0); 
+for(PCB process : Q2) {
+if( process.arrivalTime <= currentTime&&process.CPUBurstTime < shortestJob.CPUBurstTime) {
+shortestJob = process ; }
+}
+}
+}
+Q2.remove(shortestJob);
+System.out.print(shortestJob.getProcessID());
+if(shortsetJob.startTime== -1) {
+shortsetJob.startTime = currnetTime; }
+shortestJob.responseTime = shortestJob.startTime-shortestjob.arrivalTime;
+while((Q1.isEmpty() || Q1.get(0).arrivalTime>currentTime)&&shortestJob.newCPUBurstTime>0) {
+shortestJob.newCPUBurstTime--;
+currnetTime++;
+shortestJob.terminationtTime = currentTime; }
+if(shortestJob.newCPUBurstTime > 0 ){
+notEnd = 1 ;
+Q2.add(0, shortestJob); }
+else {
+notEnd = 0 ;
+shortestJob.turnaroundTime = shortestJob.terminationTime - shortestJob.arrivalTime ;
+shortestJob.waitingTime = shortestJob.turnaroundTime- shortestJob.newCPUBurstTime;
+cpu.add(shortestJob);
+currnetTime = shortestJob.terminationTime; }
+}
+else {
+System.out.print("CS");
+currentTime++; } 
+}
+}
