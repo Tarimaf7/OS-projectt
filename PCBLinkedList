@@ -50,6 +50,23 @@ public class PCBLinkedList<T> {
 			return current.next == null;
 		
 		}
+	
+	public void remove( ) 
+	{   
+  	 if (current==head) 
+         head=head.next; 
+   	 else{ 
+         Node<T> tmp = head; 
+	 while (tmp.next != current) 
+	tmp = tmp.next; 
+ 	tmp.next = current.next; 
+	 } 
+       if (current.next == null) 
+       current = head; 
+       else 
+       current = current.next; 
+       }
+
 	        
 	        //add
 	        
