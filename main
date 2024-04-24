@@ -102,9 +102,7 @@ helpingQ.findfirst();
                 
             
             case 2:
-            try{
-            FileWriter fileWriter = new FileWriter(";/Users/joudalfaleh/Desktop/Report.txt");
-            PrintWriter printWriter = new PrintWriter(fileWriter);
+          
 
 	
             
@@ -116,11 +114,8 @@ helpingQ.findfirst();
             int startTime = read.nextInt();           
             System.out.println("Enter CPU Burst Time: ");
             int cpuBurstTime = read.nextInt();
-            printWriter.close();
-            }catch (IOException e) 
-            {
-            System.out.println("SOMETHING WENT WRONGE!");
-            }
+           
+          
             
 
              
@@ -141,6 +136,37 @@ helpingQ.findfirst();
         int x =o.getTurnAroundTime()-o.getCPUBurstTime();
          o.setResponseTime(x);
          System.out.println(o.getResponseTime());  
+
+
+ try {
+         FileWriter fileWriter = new FileWriter(";/Users/joudalfaleh/Desktop/Report.txt");
+         PrintWriter printWriter = new PrintWriter(fileWriter);
+         printWriter.println("");
+         
+         printWriter.println();
+         printWriter.println("Processes detailed information");
+         printWriter.println("---------------------------------");
+         
+         for (int i = 0; i < cpu.length; i++) {
+        	    PCB p = cpu[i];
+        	    printWriter.println("Process ID: " + p.getProcessID());
+        	    printWriter.println("Priority: " + p.getPriority());
+        	    printWriter.println("Arrival Time: " + p.getArrivalTime());
+        	    printWriter.println("Start Time: " + p.getStartTime());
+        	    printWriter.println("CPU Burst Time: " + p.getCPUBurstTime());
+        	    printWriter.println("Termination Time: " + p.getTerminationTime());
+        	    printWriter.println("Turnaround Time: " + p.getTurnAroundTime());
+        	    printWriter.println("Waiting Time: " + p.getWaitingTime());
+        	    printWriter.println("Response Time: " + p.getResponseTime());
+        	    printWriter.println("---------------------------------");
+        	}
+		 printWriter.close();
+
+         
+         }catch (IOException e) 
+         {
+         System.out.println("SOMETHING WENT WRONGE!");
+         }
              break;    
             
             case 3:
