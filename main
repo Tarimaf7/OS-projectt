@@ -71,7 +71,7 @@ public class Scheduler {
                     
                  int ListSize=length(helpingQ);
                     helpingQ.findfirst();
-                    for (int n = 0; n < ListSize; n++) {
+                    for (int n = 0; n <= ListSize; n++) {
                        // helpingQ.findfirst();
                     	if (helpingQ.retrieve()!=null) {
                         if (helpingQ.retrieve().getCPUBurstTime() <= 0) {
