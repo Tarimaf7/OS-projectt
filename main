@@ -101,7 +101,7 @@ public class Scheduler {
                     	count++;
                     }
                    
-                    for (int i = 0; i < Q2.length; i++) {
+                    for (int i = 0; i < n2; i++) {
                         
                             cpu[count] = Q2[i];
                             
