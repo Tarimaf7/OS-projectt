@@ -1,29 +1,34 @@
 
 import java.util.Scanner;
 import java.io.PrintWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 public class Scheduler {
-	 static PCB[] cpu;
-    public static void main(String []args){
-        
-        Scanner read = new Scanner (System.in);
+	 static PCB[] cpu;// the scheduling Q
+	 static PCB[] Q1;
+    static  PCB[] Q2;
+   static int[] burstTime;
+	public static void main(String[] args) {
+        Scanner read = new Scanner(System.in);
         int choice;
-        PCB[] Q1;
-        PCB[] Q2;
        
-        do{
-
-	System.out.println("1. Enter process' information ");
-        System.out.println("2. Report detailed information about each process and different scheduling criteria ");
-        System.out.println("3. EXit the program");	
-        System.out.print("Enter your choice!: ");
-        choice = read.nextInt();
-        int n1=0;//the actual length of Q1
-        int n2=0;//the actual length of Q2
+         // the scheduling Q
+        int pri;
+        int n1 = 0; // the actual length of Q1
+        int n2 = 0; // the actual length of Q2
         int numP;
-        switch(choice){
-            case 1:
-            	  // scheduling the processes
+
+        do {
+        	System.out.println("1. Enter process' information ");
+            System.out.println("2. Report detailed information about each process and different scheduling criteria ");
+            System.out.println("3. EXit the program");	
+            System.out.print("Enter your choice!: ");
+            
+            choice = read.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // scheduling the processes
                     System.out.println("Enter the number of processes: ");
                     numP = read.nextInt();
                     Q1 = new PCB[numP];
@@ -52,7 +57,7 @@ public class Scheduler {
                         }
                     }
 
-                    int burstTime[] = new int[numP];
+                    burstTime = new int[numP];
                     for (int n = 0; n < n1; n++) {
                         
                             burstTime[n] = Q1[n].getCPUBurstTime();
@@ -65,25 +70,25 @@ public class Scheduler {
                     SortArrival(Q1);
 
                     for (int m = 0; m < Q1.length; m++) {
-                    	
+                    	if(Q1[m]!=null) {
                         helpingQ.add(Q1[m]);
                     }
-                    
-                 int ListSize=length(helpingQ);
+                    	else {
+                    		break;
+                    	}
+                    }
+                    int cs=0;
+                
                     helpingQ.findfirst();
-                    while(!helpingQ.isEmpty()) {
+                    while(helpingQ.isEmpty()==false) {
                        // helpingQ.findfirst();
                     	if (helpingQ.retrieve()!=null) {
                         if (helpingQ.retrieve().getCPUBurstTime() <= 0) {
-                        	helpingQ.delete();
-                            helpingQ.findfirst();
-                            if (helpingQ.last()) {
-                                helpingQ.findfirst();
-                            } else {
-                                helpingQ.findnext();
-                            }
+                        	
+                            	helpingQ.delete();
                         } else {
-                            cpu[n] = helpingQ.retrieve();
+                            cpu[cs] = helpingQ.retrieve();
+                            cs++;
                             helpingQ.retrieve().setCPUBurstTime(helpingQ.retrieve().getCPUBurstTime() - 3);
                             if(helpingQ.last()) {
                             	helpingQ.findfirst();
@@ -98,103 +103,108 @@ public class Scheduler {
                    
 
                     SortBurst(Q2);
-                    int count = 0;
-                    while(cpu[count]!=null) {
-                    	count++;
-                    }
-                   
-                    for (int i = 0; i < n2; i++) {
+                   int count=0;
+                    for (int i = 0; i < cpu.length; i++) {
+                        if(cpu[i]==null&& count < Q2.length) {
+                            cpu[i] = Q2[count];
+                           count++; 
                         
-                            cpu[count] = Q2[i];
-                            
-                        
-                    }
+                    }}
                    
                     break;
-            
-            case 2:
-          
 
-	
-            
-            System.out.println("Enter Termination Time: ");
-            int terminationTime = read.nextInt();           
-            System.out.println("Enter Arrival Time: ");
-            int arrivalTime = read.nextInt();                   
-            System.out.println("Enter Start Time: ");
-            int startTime = read.nextInt();           
-            System.out.println("Enter CPU Burst Time: ");
-            int cpuBurstTime = read.nextInt();
-           
-          
-            
+                case 2:
+                	
+                	System.out.println("the processes order scheduled in the cpu: ");
+                	for(int n=0;n<cpu.length;n++) {
+                		if (cpu[n]!=null) {
+                			System.out.print("["+cpu[n].getProcessID());
+                			System.out.print("] |");
+                		}
+                	}
+                	for(int s=0;s<cpu.length;s++) {
+                		if (Q2[s]!=null) {
+                			System.out.print("["+Q2[s].getProcessID());
+                			System.out.print("] |");
+                		}
+                	}
+                	
+                	
+                	for (int i =0;i<cpu.length;i++) {
+                		if(cpu[i]!=null) {
+                		System.out.println("process ID: "+cpu[i].getProcessID());
+                		System.out.println("process priority: "+cpu[i].getPriority());
+                		System.out.println("process arrival time: "+cpu[i].getArrivalTime());
+                		System.out.println("process cpu burst time: "+burstTime[i]);
+                	}
+                		
+                		
+                	}
+                	for(int j=0;j<Q2.length;j++) {
+        				if(Q2[j]!=null) {
+        				System.out.print(Q2[j].getProcessID());
+        				System.out.println("process priority: "+Q2[j].getPriority());
+                		System.out.println("process arrival time: "+Q2[j].getArrivalTime());
+                		System.out.println("process cpu burst time: "+Q2[j].getCPUBurstTime());
+        			}
+        				}
+                	
+                	 try {
+                         FileWriter fileWriter = new FileWriter(";\"C:\\Users\\tarim\\OneDrive\\Desktop\\report.txt\"");
+                         PrintWriter printWriter = new PrintWriter(fileWriter);
+                         printWriter.println("");
+                         
+                         printWriter.println();
+                         printWriter.println("Processes detailed information");
+                         printWriter.println("---------------------------------");
+                         
+                         for (int i = 0; i < cpu.length; i++) {
+                        	    PCB p = cpu[i];
+                        	    printWriter.println("Process ID: " + p.getProcessID());
+                        	    printWriter.println("Priority: " + p.getPriority());
+                        	    printWriter.println("Arrival Time: " + p.getArrivalTime());
+                        	   // printWriter.println("Start Time: " + p.getStartTime());
+                        	    printWriter.println("CPU Burst Time: " +burstTime[i]);
+                        	   // printWriter.println("Termination Time: " + p.getTerminationTime());
+                        	   // printWriter.println("Turnaround Time: " + p.getTurnAroundTime());
+                        	   // printWriter.println("Waiting Time: " + p.getWaitingTime());
+                        	    //printWriter.println("Response Time: " + p.getResponseTime());
+                        	    printWriter.println("---------------------------------");
+                        	}
+                         for(int t=0;t<Q2.length;t++) {
+                        	 PCB p = Q2[t];
+                     	    printWriter.println("Process ID: " + p.getProcessID());
+                     	    printWriter.println("Priority: " + p.getPriority());
+                     	    printWriter.println("Arrival Time: " + p.getArrivalTime());
+                     	   // printWriter.println("Start Time: " + p.getStartTime());
+                     	    printWriter.println("CPU Burst Time: " + p.getCPUBurstTime());
+                     	   // printWriter.println("Termination Time: " + p.getTerminationTime());
+                     	   // printWriter.println("Turnaround Time: " + p.getTurnAroundTime());
+                     	   // printWriter.println("Waiting Time: " + p.getWaitingTime());
+                     	    //printWriter.println("Response Time: " + p.getResponseTime());
+                     	    printWriter.println("---------------------------------");
+                         }
+                		 printWriter.close();
 
-             
-             PCB o = new PCB(terminationTime,arrivalTime,startTime,cpuBurstTime );
-             o.setTerminationTime(terminationTime);  
-             o.setArrivalTime(arrivalTime);  
-             o.setStartTime(startTime);
-             o.setCPUBurstTime(cpuBurstTime);                
-         //calculate Termination Time  
-         int y =o.getTerminationTime()-o.getArrivalTime();
-         o.setTurnAroundTime(y);
-         System.out.println(o.getTurnAroundTime());  
-         //calculate Waiting Time 
-         int z =o.getStartTime()-o.getArrivalTime();
-         o.setWaitingTime(z);
-         System.out.println(o.getWaitingTime());    
-        //calculate Response Time
-        int x =o.getTurnAroundTime()-o.getCPUBurstTime();
-         o.setResponseTime(x);
-         System.out.println(o.getResponseTime());  
+                         
+                         }catch (IOException e) 
+                         {
+                         System.out.println("SOMETHING WENT WRONGE!");
+                         }
+                    // Some code for case 2
+                    break;
 
+                case 3:
+                    System.out.println("Thank you, bye!");
+                    break;
+            }
 
- try {
-         FileWriter fileWriter = new FileWriter(";/Users/joudalfaleh/Desktop/Report.txt");
-         PrintWriter printWriter = new PrintWriter(fileWriter);
-         printWriter.println("");
-         
-         printWriter.println();
-         printWriter.println("Processes detailed information");
-         printWriter.println("---------------------------------");
-         
-         for (int i = 0; i < cpu.length; i++) {
-        	    PCB p = cpu[i];
-        	    printWriter.println("Process ID: " + p.getProcessID());
-        	    printWriter.println("Priority: " + p.getPriority());
-        	    printWriter.println("Arrival Time: " + p.getArrivalTime());
-        	    printWriter.println("Start Time: " + p.getStartTime());
-        	    printWriter.println("CPU Burst Time: " + p.getCPUBurstTime());
-        	    printWriter.println("Termination Time: " + p.getTerminationTime());
-        	    printWriter.println("Turnaround Time: " + p.getTurnAroundTime());
-        	    printWriter.println("Waiting Time: " + p.getWaitingTime());
-        	    printWriter.println("Response Time: " + p.getResponseTime());
-        	    printWriter.println("---------------------------------");
-        	}
-		 printWriter.close();
+        } while (choice != 3);
 
-         
-         }catch (IOException e) 
-         {
-         System.out.println("SOMETHING WENT WRONGE!");
-         }
-             break;    
-            
-            case 3:
-             System.out.println("thank you, bye!");
-                 break;
-            
-                      
-                    }
-            //all
-                            
-
-        }while(choice!=3);
-                
-        
+        read.close();
     }
 
-   public static void SortBurst(PCB[] array) {
+    public static void SortBurst(PCB[] array) {
         int n = array.length;
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
@@ -228,26 +238,7 @@ public class Scheduler {
             }
         }
     
-    public static int length(PCBLinkedList<PCB> list) {
-        if (list.isEmpty()) {
-            return 0;
-        }
-        
-        list.findfirst();
-        int size = 0;
-        while (!list.last()) {
-            size++;
-            list.findnext(); // Move the cursor to the next element
-        }
-        size++;
-        
-        return size;
-    }
-  
-
+   
 }
-
-	     
-	
 
 
