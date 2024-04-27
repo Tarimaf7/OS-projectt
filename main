@@ -4,12 +4,12 @@ import java.io.PrintWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 public class Scheduler {
-	 static PCB[] cpu;// the scheduling Q
+ static PCB[] cpu;// the scheduling Q
 	 static PCB[] Q1;
     static  PCB[] Q2;
    static int[] burstTime;
 	public static void main(String[] args) {
-        Scanner read = new Scanner(System.in);
+	Scanner read = new Scanner(System.in);
         int choice;
        
          // the scheduling Q
@@ -150,7 +150,7 @@ public class Scheduler {
         				}
                 	
                 	 try {
-                         FileWriter fileWriter = new FileWriter(";\"C:\\Users\\tarim\\OneDrive\\Desktop\\report.txt\"");
+                         FileWriter fileWriter = new FileWriter("/Users/joudalfaleh/Desktop/OS/Report.txt");
                          PrintWriter printWriter = new PrintWriter(fileWriter);
                          printWriter.println("");
                          
@@ -173,6 +173,7 @@ public class Scheduler {
                         	}
                          for(int t=0;t<Q2.length;t++) {
                         	 PCB p = Q2[t];
+                        	 if (p != null) {
                      	    printWriter.println("Process ID: " + p.getProcessID());
                      	    printWriter.println("Priority: " + p.getPriority());
                      	    printWriter.println("Arrival Time: " + p.getArrivalTime());
@@ -183,6 +184,7 @@ public class Scheduler {
                      	   // printWriter.println("Waiting Time: " + p.getWaitingTime());
                      	    //printWriter.println("Response Time: " + p.getResponseTime());
                      	    printWriter.println("---------------------------------");
+                         }
                          }
                 		 printWriter.close();
 
@@ -239,6 +241,3 @@ public class Scheduler {
         }
     
    
-}
-
-
