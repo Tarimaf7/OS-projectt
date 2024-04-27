@@ -84,18 +84,28 @@ public class PCBLinkedList<T> {
 
 
    	  public void delete() {
-	            if (current == head) {
-	                head = head.next;
-	            } else {
-	                Node tmp = head;
-	                while (tmp.next != current) {
-	                    tmp = tmp.next;
-	                }
-	                tmp.next = current.next;
-	                current = tmp;
-	            }
-
-
+			if(isEmpty()) {
+				return;
+			}
+			if(current==head) {
+				head=head.next;
+				current=head;
+			}
+			else {
+				Node<T> temp=head;
+				while(temp.next!=current) {
+					temp=temp.next;
+				}
+				if(current.next!=null) {
+					temp.next=current.next;
+					current=temp.next;
+				}
+				else {
+					temp.next=null;
+					current=head;
+				}
+			}
+		}
 
 
 	}
